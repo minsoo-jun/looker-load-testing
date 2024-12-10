@@ -230,13 +230,21 @@ def setup_cluster_auth_file(name, project, zone, client):
         ca_cert
     ]
 
+#    user_command = [
+#        "kubectl",
+#        "config",
+#        "set-credentials",
+#        entry_name,
+#        "--auth-provider",
+#        "gcp"
+#    ]
     user_command = [
         "kubectl",
         "config",
         "set-credentials",
         entry_name,
-        "--auth-provider",
-        "gcp"
+        "--auth-provider=gke-gcloud-auth-plugin",  # Correct auth provider
+        f"--cluster={entry_name}" # Important: Cluster context needed
     ]
 
     context_command = [
