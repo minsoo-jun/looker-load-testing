@@ -82,7 +82,8 @@ def build_test_image(name, project, image_tag, bucket, blob, build_client):
                 "object_": blob
             }
         },
-        "images": [f"gcr.io/{project}/{name}:{image_tag}"],
+        #"images": [f"gcr.io/{project}/{name}:{image_tag}"],
+        "images": [f"us-central1-docker.pkg.dev/{project}/demo-looker-loadtest/{name}:{image_tag}"],
         "steps": [
             {
                 "name": "gcr.io/cloud-builders/docker",
@@ -92,7 +93,8 @@ def build_test_image(name, project, image_tag, bucket, blob, build_client):
                     "cloudbuild",
                     "--no-cache",
                     "-t",
-                    f"gcr.io/{project}/{name}:{image_tag}",
+                    #f"gcr.io/{project}/{name}:{image_tag}",
+                    f"us-central1-docker.pkg.dev/{project}/demo-looker-loadtest/{name}:{image_tag}",
                     "."
                 ]
             }
