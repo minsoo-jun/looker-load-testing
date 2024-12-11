@@ -1,9 +1,7 @@
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  annotations:
-    beta.cloud.google.com/backend-config: '{"default": "config-default"}'
   name: lm-pod
   labels:
     app: lm-pod
@@ -23,7 +21,7 @@ spec:
       name: loc-master-p2
   selector:
     app: lm-pod
-  type: NodePort
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: "Deployment"
@@ -43,7 +41,7 @@ spec:
     spec:
       containers:
         - name: lm-pod
-          image: gcr.io/{{gcp_project_id}}/{{loadtest_name}}:{{image_tag}}
+          image: us-central1-docker.pkg.dev/{{gcp_project_id}}/{{loadtest_name}}:{{image_tag}}
           resources:
             requests:
               memory: "500Mi"
@@ -112,7 +110,7 @@ spec:
       protocol: TCP
   selector:
     app: le-pod
-  type: NodePort
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: "Deployment"
